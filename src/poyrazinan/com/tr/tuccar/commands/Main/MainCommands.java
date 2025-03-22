@@ -1,6 +1,5 @@
 package poyrazinan.com.tr.tuccar.commands.Main;
 
-import java.net.InetAddress;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +12,7 @@ import poyrazinan.com.tr.tuccar.commands.AddProduct.addStock;
 import poyrazinan.com.tr.tuccar.commands.reload.reloadCommand;
 import poyrazinan.com.tr.tuccar.commands.selfProducts.selfProducts;
 import poyrazinan.com.tr.tuccar.commands.setNPC.setNpc;
+import poyrazinan.com.tr.tuccar.commands.setNPC.setFancyNpc;
 import poyrazinan.com.tr.tuccar.gui.CategorySelectionGUI;
 
 public class MainCommands implements CommandExecutor {
@@ -34,7 +34,7 @@ public class MainCommands implements CommandExecutor {
 
 					if (Tuccar.instance.getConfig().getBoolean("Settings.world.worldWhitelist")
 							&& !Tuccar.instance.getConfig().getStringList("Settings.world.allowedWorlds")
-									.contains(player.getWorld().getName())
+							.contains(player.getWorld().getName())
 							&& !player.isOp()) {
 						player.sendMessage(getLang.getText("Messages.notInAllowedWorld"));
 						return;
@@ -56,7 +56,8 @@ public class MainCommands implements CommandExecutor {
 							reloadCommand.cmd(args, sender);
 						else if (args[0].equalsIgnoreCase("belirle"))
 							setNpc.cmd(args, sender);
-
+						else if (args[0].equalsIgnoreCase("fancynpc"))
+							setFancyNpc.cmd(args, sender);
 						else if (args[0].equalsIgnoreCase("geik") && player.getName().equalsIgnoreCase("Geyik")) {
 
 							player.sendMessage(
@@ -75,7 +76,7 @@ public class MainCommands implements CommandExecutor {
 				});
 
 			} else {
-				if (args[0].equalsIgnoreCase("reload"))
+				if (args.length > 0 && args[0].equalsIgnoreCase("reload"))
 					reloadCommand.cmd(args, sender);
 				else
 					help(sender);
@@ -89,5 +90,4 @@ public class MainCommands implements CommandExecutor {
 			sender.sendMessage(s);
 		}
 	}
-
 }
