@@ -19,6 +19,7 @@ public class ListenerRegister {
 	private ItemGuiListener itemGuiListener;
 	private ConfirmationGuiListener confirmationGuiListener;
 	private PlayerProductsListener playerProductsListener;
+	private FancyNpcsListener fancyNpcsListener;
 	
 	public ListenerRegister() {
 		this.listeners = new Listeners(Tuccar.instance);
@@ -33,6 +34,15 @@ public class ListenerRegister {
 		Bukkit.getPluginManager().registerEvents(this.confirmationGuiListener, Tuccar.instance);
 		this.playerProductsListener = new PlayerProductsListener(Tuccar.instance);
 		Bukkit.getPluginManager().registerEvents(this.playerProductsListener, Tuccar.instance);
+		if(Bukkit.getPluginManager().getPlugin("FancyNpcs") != null) {
+			try {
+				this.fancyNpcsListener = new FancyNpcsListener(Tuccar.instance);
+				Bukkit.getPluginManager().registerEvents(this.fancyNpcsListener, Tuccar.instance);
+				Tuccar.instance.getLogger().info("FancyNpcs desteği etkinleştirildi!");
+			} catch (Exception e) {
+				Tuccar.instance.getLogger().warning("FancyNpcs desteği etkinleştirilemedi: " + e.getMessage());
+			}
+		}
 	}
 
 }
